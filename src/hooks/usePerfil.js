@@ -1,14 +1,15 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import toast from 'react-hot-toast';
-import auth from '../api/auth-api';
+import api from '../api/auth-api';
 
 // 1. Obtener Perfil
 const getPerfil = () => {
-  return auth.get('/perfil');
+  return api.get('/perfil');
 };
 
 export const useGetPerfil = (onSuccess = null, onError = null) => {
   return useQuery('perfil', getPerfil, {
+    refetchOnWindowFocus: false,
     onSuccess,
     onError,
     retry: (failureCount, err) =>
@@ -18,7 +19,7 @@ export const useGetPerfil = (onSuccess = null, onError = null) => {
 
 // 2. Actualizar Perfil
 const putPerfil = (perfil) => {
-  return auth.put('/perfil', perfil);
+  return api.put('/perfil', perfil);
 };
 
 export const usePutPerfil = () => {

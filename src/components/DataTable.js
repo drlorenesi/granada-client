@@ -63,6 +63,7 @@ export default function DataTable({ columns, data, footer }) {
       // data: useMemo(() => data, []), // might not show updates
       columns,
       data,
+      initialState: { pageSize: 15 },
     },
     useGlobalFilter,
     useSortBy,
@@ -211,7 +212,7 @@ export default function DataTable({ columns, data, footer }) {
               >
                 Todas
               </Dropdown.Item>
-              {[10, 25, 50].map((pageSize) => (
+              {[15, 25, 50].map((pageSize) => (
                 <Dropdown.Item
                   key={pageSize}
                   value={pageSize}

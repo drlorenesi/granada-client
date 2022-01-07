@@ -22,6 +22,16 @@ export const formatDateShort = (date) =>
     second: 'numeric',
   }).format(date);
 
+// expected output: 2022-01-31
+export const formatDateISO = (date) => date.toISOString().split('T')[0];
+
+// expected output: 2022-01-31
+export const formatDateISOLocal = (date) => {
+  let z = date.getTimezoneOffset() * 60 * 1000;
+  let local = new Date(date - z).toISOString().split('T')[0];
+  return local;
+};
+
 // expected output: 123,456,789.00
 export const formatDec = (num) =>
   new Intl.NumberFormat('es-GT', {
