@@ -4,7 +4,7 @@ import { useGetUsuarios } from '../../hooks/useUsuarios';
 import Loader from '../../components/Loader';
 import ErrorMessage from '../../components/ErrorMessage';
 import DataTable from '../../components/DataTable';
-import { formatDateShort } from '../../utils/formatUtils';
+import { formatDateMed } from '../../utils/formatUtils';
 import { FaEdit, FaCheckCircle, FaStopCircle } from 'react-icons/fa';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -56,7 +56,7 @@ export default function Usuarios() {
     {
       Header: 'Ingreso Actual',
       accessor: 'ingresoActual',
-      Cell: ({ row }) => formatDateShort(new Date(row.original.ingresoActual)),
+      Cell: ({ row }) => formatDateMed(new Date(row.original.ingresoActual)),
     },
     {
       Header: 'Estatus',

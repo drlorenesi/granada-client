@@ -4,28 +4,18 @@ import { formatDec } from '../../utils/formatUtils';
 export default function HBarChart({ title, series, labels, width }) {
   const options = {
     title: {
-      text: 'Horizontal Bar Chart Example',
+      text: title,
       align: 'left',
     },
     xaxis: {
-      categories: [
-        'South Korea',
-        'Canada',
-        'United Kingdom',
-        'Netherlands',
-        'Italy',
-        'France',
-        'Japan',
-        'United States',
-        'China',
-        'Germany',
-      ],
+      categories: labels,
       labels: {
         formatter: (value) => formatDec(value),
       },
     },
     yaxis: {
       labels: {
+        formatter: (value) => formatDec(value),
         show: false,
       },
     },
@@ -58,6 +48,18 @@ export default function HBarChart({ title, series, labels, width }) {
     chart: {
       animations: {
         enabled: true, // default 'true'
+      },
+    },
+    tooltip: {
+      x: {
+        show: false,
+      },
+      y: {
+        title: {
+          formatter: function (val) {
+            return '';
+          },
+        },
       },
     },
   };

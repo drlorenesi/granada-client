@@ -12,7 +12,7 @@ export const formatDateLong = (date) =>
   }).format(date);
 
 // expected output: 1/1/2022 19:03:10
-export const formatDateShort = (date) =>
+export const formatDateMed = (date) =>
   new Intl.DateTimeFormat('es-GT', {
     year: 'numeric',
     month: 'numeric',
@@ -20,6 +20,14 @@ export const formatDateShort = (date) =>
     hour: 'numeric',
     minute: 'numeric',
     second: 'numeric',
+  }).format(date);
+
+// expected output: 1/1/2022
+export const formatDateShort = (date) =>
+  new Intl.DateTimeFormat('es-GT', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
   }).format(date);
 
 // expected output: 2022-01-31

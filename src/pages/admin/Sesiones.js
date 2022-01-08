@@ -3,7 +3,7 @@ import { useGetSesiones } from '../../hooks/useSesiones';
 import Loader from '../../components/Loader';
 import ErrorMessage from '../../components/ErrorMessage';
 import DataTable from '../../components/DataTable';
-import { formatDateShort } from '../../utils/formatUtils';
+import { formatDateMed } from '../../utils/formatUtils';
 import { FaStopCircle } from 'react-icons/fa';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -39,7 +39,7 @@ export default function Sesiones() {
     {
       Header: 'Creada',
       accessor: 'createdAt',
-      Cell: ({ row }) => formatDateShort(new Date(row.original.createdAt)),
+      Cell: ({ row }) => formatDateMed(new Date(row.original.createdAt)),
     },
     {
       Header: 'Acciones',

@@ -9,6 +9,7 @@ import {
   formatDec,
   formatQ,
   formatDateISOLocal,
+  formatDateShort,
   formatDateLong,
 } from '../../utils/formatUtils';
 // Bootstrap
@@ -199,6 +200,9 @@ export default function Canal() {
           {dataUpdatedAt !== 0 && (
             <i>
               <small>
+                Mostrando resultados del <b>{formatDateShort(fechaIni)}</b> al{' '}
+                <b>{formatDateShort(fechaFin)}</b>
+                <br />
                 Última actualización: {formatDateLong(dataUpdatedAt)}
               </small>
             </i>
