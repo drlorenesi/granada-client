@@ -47,7 +47,7 @@ export default function App() {
             {/* Private Routes */}
             <Route
               path='/ventas'
-              element={<PrivateOutlet session={session} roles={[1]} />}
+              element={<PrivateOutlet session={session} roles={[1, 2]} />}
             >
               <Route path='canal' element={<Canal />} />
               <Route path='producto' element={<Producto />} />

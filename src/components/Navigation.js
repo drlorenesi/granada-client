@@ -40,7 +40,7 @@ export default function Navigation({ session }) {
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className='me-auto'>
-            {[1].includes(decoded.role) && (
+            {[1, 2].includes(decoded.role) && (
               <NavDropdown title='Ventas'>
                 <NavDropdown.Item as={NavLink} to='/ventas/canal'>
                   Por Canal
