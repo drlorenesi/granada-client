@@ -62,6 +62,16 @@ export default function HBarChart({ title, series, labels, width }) {
         },
       },
     },
+    responsive: [
+      {
+        breakpoint: 768,
+        options: {
+          chart: {
+            width: 390,
+          },
+        },
+      },
+    ],
   };
 
   return <Chart series={series} options={options} type='bar' width={width} />;

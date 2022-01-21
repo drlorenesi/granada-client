@@ -6,8 +6,15 @@ const getRoles = () => {
   return api.get('/admin/roles');
 };
 
-export const useGetRoles = (onSuccess = null, onError = null) => {
+export const useGetRoles = (
+  enabled = true,
+  onSuccess = null,
+  onError = null
+) => {
   return useQuery('roles', getRoles, {
+    enabled,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     onSuccess,
     onError,
   });

@@ -4,20 +4,43 @@ import api from '../api/auth-api';
 // 1. Get Ventas por Canal
 const getVentasPorCanal = (fechaIni, fechaFin) => {
   return api.get(
-    `reportes/ventas/canal?fechaIni=${fechaIni}&fechaFin=${fechaFin}`
+    `/reportes/ventas/canal?fechaIni=${fechaIni}&fechaFin=${fechaFin}`
   );
 };
 
 export const useGetVentasPorCanal = (
-  enabled,
+  enabled = true,
+  fechaIni,
+  fechaFin,
+  onSuccess = null,
+  onError = null
+) => {
+  return useQuery('ventasCanal', () => getVentasPorCanal(fechaIni, fechaFin), {
+    enabled,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    onSuccess,
+    onError,
+  });
+};
+
+// 2. Get Ventas por Producto
+const getVentasPorProducto = (fechaIni, fechaFin) => {
+  return api.get(
+    `/reportes/ventas/producto?fechaIni=${fechaIni}&fechaFin=${fechaFin}`
+  );
+};
+
+export const useGetVentasPorProducto = (
+  enabled = true,
   fechaIni,
   fechaFin,
   onSuccess = null,
   onError = null
 ) => {
   return useQuery(
-    ['ventasCanal', fechaIni, fechaFin],
-    () => getVentasPorCanal(fechaIni, fechaFin),
+    'ventasProducto',
+    () => getVentasPorProducto(fechaIni, fechaFin),
     {
       enabled,
       refetchOnMount: false,
@@ -28,23 +51,23 @@ export const useGetVentasPorCanal = (
   );
 };
 
-// 1. Get Ventas por Producto
-const getVentasPorProducto = (fechaIni, fechaFin) => {
+// 3. Get Ventas por Categría
+const getVentasPorCategoria = (fechaIni, fechaFin) => {
   return api.get(
-    `reportes/ventas/producto?fechaIni=${fechaIni}&fechaFin=${fechaFin}`
+    `/reportes/ventas/categoria?fechaIni=${fechaIni}&fechaFin=${fechaFin}`
   );
 };
 
-export const useGetVentasPorProducto = (
-  enabled,
+export const useGetVentasPorCategoria = (
+  enabled = true,
   fechaIni,
   fechaFin,
   onSuccess = null,
   onError = null
 ) => {
   return useQuery(
-    ['ventasProducto', fechaIni, fechaFin],
-    () => getVentasPorProducto(fechaIni, fechaFin),
+    'ventasCategoria',
+    () => getVentasPorCategoria(fechaIni, fechaFin),
     {
       enabled,
       refetchOnMount: false,

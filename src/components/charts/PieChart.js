@@ -1,7 +1,7 @@
 import Chart from 'react-apexcharts';
 import { formatDec } from '../../utils/formatUtils';
 
-export default function DonutChart({ title, series, labels, width }) {
+export default function PieChart({ title, series, labels, width }) {
   const options = {
     labels,
     title: {
@@ -29,7 +29,7 @@ export default function DonutChart({ title, series, labels, width }) {
         breakpoint: 768,
         options: {
           chart: {
-            width: 380,
+            width: 390,
           },
           legend: {
             position: 'bottom',
@@ -39,5 +39,5 @@ export default function DonutChart({ title, series, labels, width }) {
     ],
   };
 
-  return <Chart series={series} options={options} type='donut' width={width} />;
+  return <Chart series={series} options={options} type='pie' width={width} />;
 }

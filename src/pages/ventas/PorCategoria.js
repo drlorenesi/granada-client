@@ -10,7 +10,6 @@ import {
   formatQ,
   formatP,
   formatDateISOLocal,
-  formatDateShort,
   formatDateLong,
 } from '../../utils/formatUtils';
 // Bootstrap
@@ -21,11 +20,11 @@ import Button from 'react-bootstrap/Button';
 // Form Inputs
 import DateField from '../../components/formInputs/DateField';
 // Hooks
-import { useGetVentasPorProducto } from '../../hooks/useVentas';
+import { useGetVentasPorCategoria } from '../../hooks/useVentas';
 // Charts
 import HBarChart from '../../components/charts/HBarChart';
 
-export default function Porducto() {
+export default function PorCategoria() {
   const [fechaIni, setFechaIni] = useState(startOfMonth(new Date()));
   const [fechaFin, setFechaFin] = useState(new Date());
 
@@ -37,27 +36,26 @@ export default function Porducto() {
     dataUpdatedAt,
     // isError,
     // error,
-  } = useGetVentasPorProducto(
+  } = useGetVentasPorCategoria(
     false,
     formatDateISOLocal(fechaIni),
     formatDateISOLocal(fechaFin)
   );
 
-  let top10 = data?.data.rows
-    .sort((a, p) => (a.total_venta > p.total_venta ? -1 : 1))
-    .slice(0, 10);
+  let top = data?.data.rows.sort((a, p) =>
+    a.venta_total_siva > p.venta_total_siva ? -1 : 1
+  );
 
   // Chart
   // -----
-  const hbarTitle = 'Top 10 de Productos mas vendidos por monto (Q)';
+  const hbarTitle = 'Categorías mas vendidas por monto (Q)';
   const hbarSeries = [
     {
       name: 'Monto',
-      // data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380],
-      data: top10?.map((p) => p.total_venta),
+      data: top?.map((p) => p.venta_total_siva),
     },
   ];
-  const hbarLabels = top10?.map((p) => p.descripcion);
+  const hbarLabels = top?.map((p) => p.categoria);
 
   const initialValues = {
     fechaIni: fechaIni || '',
@@ -78,43 +76,45 @@ export default function Porducto() {
 
   // Data Table
   const columns = [
-    { Header: 'Cod. Alt.', accessor: 'codigo_alt' },
-    { Header: 'Producto', accessor: 'producto' },
-    { Header: 'Descripcion', accessor: 'descripcion' },
+    { Header: 'Categoría', accessor: 'categoria' },
+    // { Header: 'Cant.', accessor: 'cantidad_total' },
     {
       Header: 'Cant.',
-      accessor: 'cantidad',
+      accessor: 'cantidad_total',
       Cell: (props) => {
         return (
           <div style={{ textAlign: 'right' }}>
-            {props.row.original.cantidad}
+            {props.row.original.cantidad_total}
           </div>
         );
       },
     },
     {
       Header: 'Costo Total',
-      accessor: 'total_costo',
+      accessor: 'costo_total',
       Cell: (props) => {
         return (
           <div style={{ textAlign: 'right' }}>
-            {formatDec(props.row.original.total_costo)}
+            {formatDec(props.row.original.costo_total)}
           </div>
         );
       },
     },
     {
       Header: 'Venta Total',
-      accessor: 'total_venta',
+      accessor: 'venta_total_siva',
       Cell: (props) => {
         return (
           <div style={{ textAlign: 'right' }}>
-            {formatDec(props.row.original.total_venta)}
+            {formatDec(props.row.original.venta_total_siva)}
           </div>
         );
       },
       Footer: (props) => {
-        let total = props.rows.reduce((a, b) => a + b.values.total_venta, 0);
+        let total = props.rows.reduce(
+          (a, b) => a + b.values.venta_total_siva,
+          0
+        );
         return (
           <div style={{ textAlign: 'right' }}>
             <b>{formatQ(total)}</b>
@@ -124,16 +124,16 @@ export default function Porducto() {
     },
     {
       Header: 'Profit',
-      accessor: 'margen',
+      accessor: 'profit',
       Cell: (props) => {
         return (
           <div style={{ textAlign: 'right' }}>
-            {formatDec(props.row.original.margen)}
+            {formatDec(props.row.original.profit)}
           </div>
         );
       },
       Footer: (props) => {
-        let total = props.rows.reduce((a, b) => a + b.values.margen, 0);
+        let total = props.rows.reduce((a, b) => a + b.values.profit, 0);
         return (
           <div style={{ textAlign: 'right' }}>
             <b>{formatQ(total)}</b>
@@ -143,25 +143,28 @@ export default function Porducto() {
     },
     {
       Header: 'Profit (%)',
-      accessor: 'profit',
+      accessor: 'profit_p',
       Cell: (props) => {
         let color;
-        if (props.row.original.profit < 0.25) {
+        if (props.row.original.profit_p < 0.25) {
           color = 'red';
-        } else if (props.row.original.profit >= 0.35) {
+        } else if (props.row.original.profit_p >= 0.35) {
           color = 'green';
         } else {
           color = 'black';
         }
         return (
           <div style={{ textAlign: 'right', color: `${color}` }}>
-            {formatP(props.row.original.profit)}
+            {formatP(props.row.original.profit_p)}
           </div>
         );
       },
       Footer: (props) => {
-        let venta = props.rows.reduce((a, b) => a + b.values.total_venta, 0);
-        let profit = props.rows.reduce((a, b) => a + b.values.margen, 0);
+        let venta = props.rows.reduce(
+          (a, b) => a + b.values.venta_total_siva,
+          0
+        );
+        let profit = props.rows.reduce((a, b) => a + b.values.profit, 0);
         let resultado = profit / venta;
         let color;
         if (resultado < 0.25) {
@@ -178,17 +181,17 @@ export default function Porducto() {
         );
       },
     },
-    {
-      Header: 'Precio Prom. c/VIA',
-      accessor: 'precio_prom_civa',
-      Cell: (props) => {
-        return (
-          <div style={{ textAlign: 'right' }}>
-            {formatDec(props.row.original.precio_prom_civa)}
-          </div>
-        );
-      },
-    },
+    //   {
+    //     Header: 'Precio Prom. c/VIA',
+    //     accessor: 'precio_prom_civa',
+    //     Cell: (props) => {
+    //       return (
+    //         <div style={{ textAlign: 'right' }}>
+    //           {formatDec(props.row.original.precio_prom_civa)}
+    //         </div>
+    //       );
+    //     },
+    //   },
   ];
 
   // Sum up to 12
@@ -197,7 +200,7 @@ export default function Porducto() {
 
   return (
     <>
-      <h1>Ventas por Producto</h1>
+      <h1>Ventas por Categoría</h1>
       <Row>
         <Col lg={4} md={6} sm={6}>
           <Formik
@@ -258,7 +261,7 @@ export default function Porducto() {
                 title={hbarTitle}
                 series={hbarSeries}
                 labels={hbarLabels}
-                width='450'
+                width='460'
               />
             )}
           </div>
@@ -270,8 +273,8 @@ export default function Porducto() {
           {dataUpdatedAt !== 0 && (
             <i>
               <small>
-                Mostrando resultados del <b>{formatDateShort(fechaIni)}</b> al{' '}
-                <b>{formatDateShort(fechaFin)}</b>
+                Mostrando resultados del <b>{data?.data.query.fechaIni}</b> al{' '}
+                <b>{data?.data.query.fechaFin}</b>
                 <br />
                 Última actualización: {formatDateLong(dataUpdatedAt)}
               </small>

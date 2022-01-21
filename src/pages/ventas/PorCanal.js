@@ -9,7 +9,6 @@ import {
   formatDec,
   formatQ,
   formatDateISOLocal,
-  formatDateShort,
   formatDateLong,
 } from '../../utils/formatUtils';
 // Bootstrap
@@ -22,9 +21,9 @@ import DateField from '../../components/formInputs/DateField';
 // Hooks
 import { useGetVentasPorCanal } from '../../hooks/useVentas';
 // Charts
-import DonutChart from '../../components/charts/DonutChart';
+import PieChart from '../../components/charts/PieChart';
 
-export default function Canal() {
+export default function PorCanal() {
   const [fechaIni, setFechaIni] = useState(startOfMonth(new Date()));
   const [fechaFin, setFechaFin] = useState(new Date());
 
@@ -184,12 +183,7 @@ export default function Canal() {
         <Col lg={8} md={6}>
           <div className='d-flex justify-content-center'>
             {data && (
-              <DonutChart
-                series={donutSeries}
-                labels={donutLabels}
-                width='450'
-                height='600'
-              />
+              <PieChart series={donutSeries} labels={donutLabels} width='460' />
             )}
           </div>
         </Col>
@@ -200,8 +194,8 @@ export default function Canal() {
           {dataUpdatedAt !== 0 && (
             <i>
               <small>
-                Mostrando resultados del <b>{formatDateShort(fechaIni)}</b> al{' '}
-                <b>{formatDateShort(fechaFin)}</b>
+                Mostrando resultados del <b>{data?.data.query.fechaIni}</b> al{' '}
+                <b>{data?.data.query.fechaFin}</b>
                 <br />
                 Última actualización: {formatDateLong(dataUpdatedAt)}
               </small>

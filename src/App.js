@@ -12,8 +12,12 @@ import Perfil from './pages/Perfil';
 import Pass from './pages/Pass';
 import NoExiste from './pages/NoExiste';
 // Ventas
-import Canal from './pages/ventas/Canal';
-import Producto from './pages/ventas/Producto';
+import PorCanal from './pages/ventas/PorCanal';
+import PorProducto from './pages/ventas/PorProducto';
+import PorCategoria from './pages/ventas/PorCategoria';
+// Inventarios
+// import Productos from './pages/inventario/Productos';
+// import Producto from './pages/inventario/Producto';
 // Admin
 import Usuarios from './pages/admin/Usuarios';
 import Usuario from './pages/admin/Usuario';
@@ -45,13 +49,25 @@ export default function App() {
             <Route path='/info' element={<Info />} />
             <Route path='/reinicio' element={<Reinicio />} />
             {/* Private Routes */}
+            {/* -------------- */}
+            {/* Ventas */}
             <Route
               path='/ventas'
               element={<PrivateOutlet session={session} roles={[1, 2]} />}
             >
-              <Route path='canal' element={<Canal />} />
-              <Route path='producto' element={<Producto />} />
+              <Route path='canal' element={<PorCanal />} />
+              <Route path='producto' element={<PorProducto />} />
+              <Route path='categoria' element={<PorCategoria />} />
             </Route>
+            {/* Inventarios */}
+            {/* <Route
+              path='/inventario'
+              element={<PrivateOutlet session={session} roles={[1, 2]} />}
+            >
+              <Route path='productos' element={<Productos />} />
+              <Route path='productos/:id' element={<Producto />} />
+            </Route> */}
+            {/* Admin */}
             <Route
               path='/admin'
               element={<PrivateOutlet session={session} roles={[1]} />}

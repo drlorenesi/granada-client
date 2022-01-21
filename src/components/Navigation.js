@@ -48,8 +48,18 @@ export default function Navigation({ session }) {
                 <NavDropdown.Item as={NavLink} to='/ventas/producto'>
                   Por Producto
                 </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to='/ventas/categoria'>
+                  Por Categoría
+                </NavDropdown.Item>
               </NavDropdown>
             )}
+            {/* {[1, 2].includes(decoded.role) && (
+              <NavDropdown title='Inventario'>
+                <NavDropdown.Item as={NavLink} to='/inventario/productos'>
+                  Productos
+                </NavDropdown.Item>
+              </NavDropdown>
+            )} */}
           </Nav>
           <Nav>
             <Nav.Link as={NavLink} to='/info'>

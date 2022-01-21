@@ -14,7 +14,7 @@ config.interceptors.response.use(null, (error) => {
     error.response.status < 500;
   if (!expectedError && !axios.isCancel(error)) {
     // Mostrar menaje de error al usuario
-    toast.error('Lo sentimos, ocurrió un error inesperado 😖');
+    toast.error('Lo sentimos, ocurrió un error inesperado...');
     // Enviar información de error a administrador
     console.log('Enviando error a administrador...', error);
   }
