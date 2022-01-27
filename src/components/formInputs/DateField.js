@@ -28,6 +28,7 @@ export default function DateField(props) {
         dateFormat='dd/MM/yyyy'
         showWeekNumbers
         todayButton='Hoy'
+        calendarStartDay={0}
         isClearable
       />
       {meta.touched && meta.error && (
