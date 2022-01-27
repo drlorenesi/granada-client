@@ -128,7 +128,7 @@ export default function PorCanal() {
     <>
       <h1>Ventas por Canal</h1>
       <Row>
-        <Col lg={4} md={6} sm={6}>
+        <Col lg={4} md={5} sm={6}>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -180,7 +180,7 @@ export default function PorCanal() {
             )}
           </Formik>
         </Col>
-        <Col lg={8} md={6}>
+        <Col lg={8} md={7}>
           <div className='d-flex justify-content-center'>
             {data && (
               <PieChart series={donutSeries} labels={donutLabels} width='460' />

@@ -203,7 +203,7 @@ export default function PorProducto() {
     <>
       <h1>Ventas por Producto</h1>
       <Row>
-        <Col lg={4} md={6} sm={6}>
+        <Col lg={4} md={5} sm={6}>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -255,7 +255,7 @@ export default function PorProducto() {
             )}
           </Formik>
         </Col>
-        <Col lg={8} md={6}>
+        <Col lg={8} md={7}>
           <div className='d-flex justify-content-center'>
             {data && (
               <HBarChart
