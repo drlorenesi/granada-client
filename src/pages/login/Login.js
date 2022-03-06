@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Formik, Form as FormikForm } from 'formik';
 import * as Yup from 'yup';
 // Bootstrap
@@ -15,6 +15,10 @@ import { useSession } from '../../context/SessionContext';
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirect = location.state?.path || '/';
+  console.log(redirect);
+
   const { setSession } = useSession();
   const [signInError, setSignInError] = useState(false);
   const [show, setShow] = useState(false);
@@ -39,7 +43,7 @@ export default function Login() {
       const res = await login.post('login', values);
       const sessionInfo = res.headers['session-info'];
       setSession(sessionInfo);
-      navigate('/');
+      navigate(redirect, { replace: true });
     } catch (err) {
       setSignInError(err.response.data?.mensaje);
       setShow(true);

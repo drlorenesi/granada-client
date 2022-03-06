@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
-const SessionContext = createContext();
+const SessionContext = createContext(null);
 
 // Session Provider
 function SessionProvider(props) {
