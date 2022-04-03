@@ -7,10 +7,14 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 // Login API
 import login from '../api/login-api';
-// Context
+import decodeSession from '../utils/decodeSession';
+
+// Test Login
 import { useSession } from '../context/SessionContext';
 
-export default function Navigation() {
+export default function Navigation({ session }) {
+  let decoded = decodeSession(session);
+
   const { setSession } = useSession();
 
   const navigate = useNavigate();
@@ -36,30 +40,41 @@ export default function Navigation() {
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className='me-auto'>
-            <NavDropdown title='Ventas'>
-              <NavDropdown.Item as={NavLink} to='/ventas/canal'>
-                Por Canal
-              </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to='/ventas/producto'>
-                Por Producto
-              </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to='/ventas/categoria'>
-                Por Categoría
-              </NavDropdown.Item>
-            </NavDropdown>
+            {[1, 2].includes(decoded.role) && (
+              <NavDropdown title='Ventas'>
+                <NavDropdown.Item as={NavLink} to='/ventas/canal'>
+                  Por Canal
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to='/ventas/producto'>
+                  Por Producto
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to='/ventas/categoria'>
+                  Por Categoría
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
+            {/* {[1, 2].includes(decoded.role) && (
+              <NavDropdown title='Inventario'>
+                <NavDropdown.Item as={NavLink} to='/inventario/productos'>
+                  Productos
+                </NavDropdown.Item>
+              </NavDropdown>
+            )} */}
           </Nav>
           <Nav>
             <Nav.Link as={NavLink} to='/info'>
               Info
             </Nav.Link>
-            <NavDropdown align='end' title='Admin'>
-              <NavDropdown.Item as={NavLink} to='/admin/usuarios'>
-                Usuarios
-              </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to='/admin/sesiones'>
-                Sesiones
-              </NavDropdown.Item>
-            </NavDropdown>
+            {[1].includes(decoded.role) && (
+              <NavDropdown align='end' title='Admin'>
+                <NavDropdown.Item as={NavLink} to='/admin/usuarios'>
+                  Usuarios
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to='/admin/sesiones'>
+                  Sesiones
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
             <NavDropdown align='end' title={<FaUserCircle size={21} />}>
               <NavDropdown.Item as={NavLink} to='/perfil'>
                 Mi Perfil

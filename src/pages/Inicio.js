@@ -1,3 +1,5 @@
+// Components
+import Loader from '../components/Loader';
 // Bootstrap
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -5,9 +7,11 @@ import Col from 'react-bootstrap/Col';
 import { useGetPerfil } from '../hooks/usePerfil';
 
 export default function Inicio() {
-  const { data } = useGetPerfil();
+  const { isLoading, data } = useGetPerfil();
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <>
       <h1>Inicio</h1>
       <p>Bienvenido {data?.data.nombre}!</p>

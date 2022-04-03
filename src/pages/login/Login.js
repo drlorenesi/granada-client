@@ -14,12 +14,12 @@ import login from '../../api/login-api';
 import { useSession } from '../../context/SessionContext';
 
 export default function Login() {
+  const { setSession } = useSession();
+
   const navigate = useNavigate();
   const location = useLocation();
-  const redirect = location.state?.path || '/';
-  console.log(redirect);
+  const redirect = location.state?.from?.pathname || '/';
 
-  const { setSession } = useSession();
   const [signInError, setSignInError] = useState(false);
   const [show, setShow] = useState(false);
 
