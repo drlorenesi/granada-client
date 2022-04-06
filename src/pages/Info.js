@@ -12,9 +12,8 @@ export default function Info() {
       <Row>
         <Col sm={6}>
           <p>
-            El objetivo de este portal es proveer a los usuario de Fábrica
-            Granada encontrar información relevante a su área de una manera
-            segura, rápida y eficiente.
+            El objetivo de este portal es proveer a los usuarios información
+            relevante a su área de trabajo de manera segura, rápida y eficiente.
           </p>
         </Col>
         <Col sm={6}></Col>

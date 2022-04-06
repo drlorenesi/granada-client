@@ -47,6 +47,11 @@ export default function Navigation() {
                 Por Categoría
               </NavDropdown.Item>
             </NavDropdown>
+            <NavDropdown title='Producción'>
+              <NavDropdown.Item as={NavLink} to='/produccion/sugerido-pt'>
+                Orden Sugerida PT
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
           <Nav>
             <Nav.Link as={NavLink} to='/info'>

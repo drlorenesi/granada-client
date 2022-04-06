@@ -22,6 +22,8 @@ import NoAutorizado from './pages/NoAutorizado';
 import PorCanal from './pages/ventas/PorCanal';
 import PorProducto from './pages/ventas/PorProducto';
 import PorCategoria from './pages/ventas/PorCategoria';
+// Produccion
+import SugeridoPT from './pages/produccion/SugeridoPT';
 // Inventarios
 // import Productos from './pages/inventario/Productos';
 // import Producto from './pages/inventario/Producto';
@@ -57,6 +59,10 @@ export default function App() {
           <Route path='ventas/canal' element={<PorCanal />} />
           <Route path='ventas/producto' element={<PorProducto />} />
           <Route path='ventas/categoria' element={<PorCategoria />} />
+        </Route>
+        {/* Produccion */}
+        <Route element={<PrivateOutlet roles={[1, 2]} />}>
+          <Route path='produccion/sugerido-pt' element={<SugeridoPT />} />
         </Route>
         {/* Admin */}
         <Route element={<PrivateOutlet roles={[1, 2]} />}>
