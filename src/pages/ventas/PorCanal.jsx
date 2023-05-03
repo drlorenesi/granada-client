@@ -1,38 +1,38 @@
-import { useMemo } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { startOfMonth } from 'date-fns';
+import { useMemo } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { startOfMonth } from "date-fns";
 // Bootstrap
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 // Form Inputs
-import DateField from '../../components/formInputs/DateField';
-import Submit from '../../components/formInputs/Submit';
+import DateField from "../../components/formInputs/DateField";
+import Submit from "../../components/formInputs/Submit";
 // Queries
-import { useGetVentasPorCanal } from '../../queries/useVentas';
+import { useGetVentasPorCanal } from "../../queries/useVentas";
 // Charts
-import PieChart from '../../components/charts/PieChart';
+import PieChart from "../../components/charts/PieChart";
 // Data Table
-import DataTable from '../../components/DataTable';
+import DataTable from "../../components/DataTable";
 // Utils
 import {
   formatDateISOLocal,
   formatDateLong,
   formatDec,
   formatQ,
-} from '../../utils/formatUtils';
+} from "../../utils/formatUtils";
 
 export default function PorCanal() {
   const defaultValues = {
-    fechaIni: startOfMonth(new Date()) || '',
-    fechaFin: new Date() || '',
+    fechaIni: startOfMonth(new Date()) || "",
+    fechaFin: new Date() || "",
   };
 
   const validationSchema = yup.object({
-    fechaIni: yup.date().required('Campo obligatorio').nullable(),
-    fechaFin: yup.date().required('Campo obligatorio').nullable(),
+    fechaIni: yup.date().required("Campo obligatorio").nullable(),
+    fechaFin: yup.date().required("Campo obligatorio").nullable(),
   });
 
   const {
@@ -42,7 +42,7 @@ export default function PorCanal() {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues,
-    mode: 'onChange',
+    mode: "onChange",
     resolver: yupResolver(validationSchema),
   });
 
@@ -56,8 +56,8 @@ export default function PorCanal() {
     // error,
   } = useGetVentasPorCanal(
     false,
-    formatDateISOLocal(getValues('fechaIni') || null),
-    formatDateISOLocal(getValues('fechaFin') || null)
+    formatDateISOLocal(getValues("fechaIni") || null),
+    formatDateISOLocal(getValues("fechaFin") || null)
   );
 
   // Donut Chart
@@ -69,46 +69,35 @@ export default function PorCanal() {
   // ----------
   const columns = useMemo(
     () => [
-      { Header: 'Canal', accessor: 'canal' },
+      { Header: "Canal", accessor: "canal" },
       {
-        Header: 'Total Ventas sIVA',
-        accessor: 'total_ventas_siva',
+        Header: "Total Ventas sIVA",
+        accessor: "total_ventas_siva",
         Cell: (props) => {
           return (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: "right" }}>
               {formatDec(props.row.original.total_ventas_siva)}
             </div>
           );
         },
       },
       {
-        Header: 'Total NC Devolución sIVA',
-        accessor: 'total_nc_devolucion_siva',
+        Header: "Total NC Valor sIVA",
+        accessor: "total_nc_valor_siva",
         Cell: (props) => {
           return (
-            <div style={{ textAlign: 'right' }}>
-              {formatDec(props.row.original.total_nc_devolucion_siva)}
-            </div>
-          );
-        },
-      },
-      {
-        Header: 'Total NC Valor sIVA',
-        accessor: 'total_nc_valor_siva',
-        Cell: (props) => {
-          return (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: "right" }}>
               {formatDec(props.row.original.total_nc_valor_siva)}
             </div>
           );
         },
       },
       {
-        Header: 'Total',
-        accessor: 'total',
+        Header: "Total",
+        accessor: "total",
         Cell: (props) => {
           return (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: "right" }}>
               {formatDec(props.row.original.total)}
             </div>
           );
@@ -116,7 +105,7 @@ export default function PorCanal() {
         Footer: (props) => {
           let total = props.rows.reduce((a, b) => a + b.values.total, 0);
           return (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: "right" }}>
               <b>{formatQ(total)}</b>
             </div>
           );
@@ -143,28 +132,28 @@ export default function PorCanal() {
         <Col lg={4} md={4} sm={6}>
           <Form onSubmit={handleSubmit(onSubmit)}>
             {/* Fecha Inicio */}
-            <Form.Group as={Row} className='mb-2'>
+            <Form.Group as={Row} className="mb-2">
               <Form.Label column sm={labelSize}>
                 Inicio:
               </Form.Label>
               <Col sm={inputSize}>
-                <DateField control={control} name='fechaIni' />
+                <DateField control={control} name="fechaIni" />
               </Col>
             </Form.Group>
             {/* Fecha Fin */}
-            <Form.Group as={Row} className='mb-2'>
+            <Form.Group as={Row} className="mb-2">
               <Form.Label column sm={labelSize}>
                 Fin:
               </Form.Label>
               <Col sm={inputSize}>
-                <DateField control={control} name='fechaFin' />
+                <DateField control={control} name="fechaFin" />
               </Col>
             </Form.Group>
             {/* Submit */}
             <Form.Group as={Row}>
               <Col sm={{ span: inputSize, offset: labelSize }}>
                 <Submit
-                  name='Enviar'
+                  name="Enviar"
                   isSubmitting={isSubmitting || isLoading || isFetching}
                   error={Object.keys(errors).length > 0}
                 />
@@ -172,11 +161,11 @@ export default function PorCanal() {
             </Form.Group>
           </Form>
           {!!dataUpdatedAt && (
-            <div className='text-center'>
+            <div className="text-center">
               <small>
                 <div>Mostrando resultados del:</div>
                 <div>
-                  <b>{data?.data.query.fechaIni}</b> al{' '}
+                  <b>{data?.data.query.fechaIni}</b> al{" "}
                   <b>{data?.data.query.fechaFin}</b>
                 </div>
                 <div>Última actualización:</div>
@@ -189,9 +178,9 @@ export default function PorCanal() {
         </Col>
         {/* Row 1 - Col 2 */}
         <Col>
-          <div className='d-flex justify-content-center'>
+          <div className="d-flex justify-content-center">
             {data && (
-              <PieChart series={donutSeries} labels={donutLabels} width='460' />
+              <PieChart series={donutSeries} labels={donutLabels} width="460" />
             )}
           </div>
         </Col>
