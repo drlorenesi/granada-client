@@ -1,53 +1,53 @@
-import { useMemo } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import { useMemo } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 // Bootstrap
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 // Form Inputs
-import SelectField from '../../components/formInputs/SelectField';
-import CheckboxFieldGroup from '../../components/formInputs/CheckboxFieldGroup';
-import Submit from '../../components/formInputs/Submit';
+import SelectField from "../../components/formInputs/SelectField";
+import CheckboxFieldGroup from "../../components/formInputs/CheckboxFieldGroup";
+import Submit from "../../components/formInputs/Submit";
 // Queries
-import { useGetSugeridoPT } from '../../queries/useProduccion';
+import { useGetSugeridoPT } from "../../queries/useProduccion";
 // Data Table
-import DataTable from '../../components/DataTable';
+import DataTable from "../../components/DataTable";
 // Utils
-import { formatDec } from '../../utils/formatUtils';
+import { formatDec } from "../../utils/formatUtils";
 
 export default function PorCanal() {
   const dropDownOptions = [
-    { key: '1 Semana', value: '0.25' },
-    { key: '2 Semanas', value: '0.50' },
-    { key: '3 Semanas', value: '0.75' },
-    { key: '4 Semanas', value: '1' },
+    { key: "1 Semana", value: "0.25" },
+    { key: "2 Semanas", value: "0.50" },
+    { key: "3 Semanas", value: "0.75" },
+    { key: "4 Semanas", value: "1" },
   ];
 
   const checkboxOptions = [
-    { key: 'PT Central', value: '5' },
-    { key: 'PT MN', value: '11' },
-    { key: 'PT Xela', value: '14' },
-    { key: 'PT Tienda', value: '27' },
+    { key: "PT Central", value: "5" },
+    { key: "PT Z2", value: "213" },
+    { key: "PT Xela", value: "14" },
+    { key: "PT Tienda", value: "27" },
   ];
 
   const defaultValues = {
-    stock: '0.50',
-    produccion: '0.25',
-    bodegas: ['5', '11', '14', '27'],
+    stock: "0.50",
+    produccion: "0.25",
+    bodegas: ["5", "213", "14", "27"],
   };
 
   const validationSchema = yup.object({
     stock: yup
       .number()
-      .typeError('Por favor seleccionar una opción.')
-      .required('Campo obligatorio')
+      .typeError("Por favor seleccionar una opción.")
+      .required("Campo obligatorio")
       .nullable(),
     produccion: yup
       .number()
-      .typeError('Por favor seleccionar una opción.')
-      .required('Campo obligatorio')
+      .typeError("Por favor seleccionar una opción.")
+      .required("Campo obligatorio")
       .nullable(),
     bodegas: yup.array().of(yup.number()),
   });
@@ -59,7 +59,7 @@ export default function PorCanal() {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues,
-    mode: 'onSubmit',
+    mode: "onSubmit",
     resolver: yupResolver(validationSchema),
   });
 
@@ -73,108 +73,108 @@ export default function PorCanal() {
     // error,
   } = useGetSugeridoPT(
     false,
-    getValues('stock'),
-    getValues('produccion'),
-    encodeURIComponent(getValues('bodegas'))
+    getValues("stock"),
+    getValues("produccion"),
+    encodeURIComponent(getValues("bodegas"))
   );
 
   // Data Table
   // ----------
   const columns = useMemo(
     () => [
-      { Header: 'Código', accessor: 'codigo' },
-      { Header: 'Código Alt', accessor: 'codigo_alt' },
-      { Header: 'Descripción', accessor: 'descripcion' },
+      { Header: "Código", accessor: "codigo" },
+      { Header: "Código Alt", accessor: "codigo_alt" },
+      { Header: "Descripción", accessor: "descripcion" },
       {
-        Header: 'Ventas P4',
-        accessor: 'ventas_p4',
+        Header: "Ventas P4",
+        accessor: "ventas_p4",
         Cell: (props) => {
           return (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: "right" }}>
               {formatDec(props.row.original.ventas_p4)}
             </div>
           );
         },
       },
       {
-        Header: 'Ventas P2',
-        accessor: 'ventas_p2',
+        Header: "Ventas P2",
+        accessor: "ventas_p2",
         Cell: (props) => {
           return (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: "right" }}>
               {formatDec(props.row.original.ventas_p2)}
             </div>
           );
         },
       },
       {
-        Header: 'Disponible',
-        accessor: 'disponible',
+        Header: "Disponible",
+        accessor: "disponible",
         Cell: (props) => {
           return (
-            <div style={{ textAlign: 'right', fontWeight: 'bold' }}>
+            <div style={{ textAlign: "right", fontWeight: "bold" }}>
               {formatDec(props.row.original.disponible)}
             </div>
           );
         },
       },
       {
-        Header: 'Produccion',
-        accessor: 't_produccion',
+        Header: "Produccion",
+        accessor: "t_produccion",
         Cell: (props) => {
           return (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: "right" }}>
               {formatDec(props.row.original.t_produccion)}
             </div>
           );
         },
       },
       {
-        Header: 'Stock',
-        accessor: 't_stock',
+        Header: "Stock",
+        accessor: "t_stock",
         Cell: (props) => {
           return (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: "right" }}>
               {formatDec(props.row.original.t_stock)}
             </div>
           );
         },
       },
       {
-        Header: 'Sugerido 4',
-        accessor: 'sugerido_4',
+        Header: "Sugerido 4",
+        accessor: "sugerido_4",
         Cell: (props) => {
           return (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: "right" }}>
               {formatDec(props.row.original.sugerido_4)}
             </div>
           );
         },
       },
       {
-        Header: 'Sugerido 2',
-        accessor: 'sugerido_2',
+        Header: "Sugerido 2",
+        accessor: "sugerido_2",
         Cell: (props) => {
           return (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: "right" }}>
               {formatDec(props.row.original.sugerido_2)}
             </div>
           );
         },
       },
       {
-        Header: 'Promedio',
-        accessor: 'promedio',
+        Header: "Promedio",
+        accessor: "promedio",
         Cell: (props) => {
-          let display = 'black';
+          let display = "black";
           if (props.row.original.promedio < 0) {
-            display = 'red';
+            display = "red";
           } else {
-            display = 'green';
+            display = "green";
           }
           return (
             <div
-              style={{ textAlign: 'right', fontWeight: 'bold', color: display }}
+              style={{ textAlign: "right", fontWeight: "bold", color: display }}
             >
               {formatDec(props.row.original.promedio)}
             </div>
@@ -202,27 +202,27 @@ export default function PorCanal() {
         <Col lg={4} md={4} sm={6}>
           <Form onSubmit={handleSubmit(onSubmit)}>
             {/* Stock */}
-            <Form.Group as={Row} className='mb-2'>
+            <Form.Group as={Row} className="mb-2">
               <Form.Label column sm={labelSize}>
                 Stock:
               </Form.Label>
               <Col sm={inputSize}>
                 <SelectField
                   control={control}
-                  name='stock'
+                  name="stock"
                   options={dropDownOptions}
                 />
               </Col>
             </Form.Group>
             {/* Producción */}
-            <Form.Group as={Row} className='mb-2'>
+            <Form.Group as={Row} className="mb-2">
               <Form.Label column sm={labelSize}>
                 Producción:
               </Form.Label>
               <Col sm={inputSize}>
                 <SelectField
                   control={control}
-                  name='produccion'
+                  name="produccion"
                   options={dropDownOptions}
                 />
               </Col>
@@ -231,7 +231,7 @@ export default function PorCanal() {
             <Form.Group as={Row}>
               <Col sm={{ span: inputSize, offset: labelSize }}>
                 <Submit
-                  name='Enviar'
+                  name="Enviar"
                   isSubmitting={isSubmitting || isLoading || isFetching}
                   error={Object.keys(errors).length > 0}
                 />
@@ -242,14 +242,14 @@ export default function PorCanal() {
         {/* Row 1 - Col 2 */}
         <Col lg={4} md={4} sm={6}>
           {/* Bodegas */}
-          <Form.Group as={Row} className='mb-2'>
+          <Form.Group as={Row} className="mb-2">
             <Form.Label column sm={labelSize}>
               Bodegas:
             </Form.Label>
             <Col sm={inputSize}>
               <CheckboxFieldGroup
                 control={control}
-                name='bodegas'
+                name="bodegas"
                 options={checkboxOptions}
               />
             </Col>
