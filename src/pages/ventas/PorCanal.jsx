@@ -62,7 +62,7 @@ export default function PorCanal() {
 
   // Donut Chart
   // -----------
-  const donutSeries = data?.data.rows.map((row) => row.total_ventas_siva);
+  const donutSeries = data?.data.rows.map((row) => row.ventas_siva);
   const donutLabels = data?.data.rows.map((row) => row.canal);
 
   // Data Table
@@ -71,23 +71,34 @@ export default function PorCanal() {
     () => [
       { Header: "Canal", accessor: "canal" },
       {
-        Header: "Total Ventas sIVA",
-        accessor: "total_ventas_siva",
+        Header: "Ventas sIVA",
+        accessor: "ventas_siva",
         Cell: (props) => {
           return (
             <div style={{ textAlign: "right" }}>
-              {formatDec(props.row.original.total_ventas_siva)}
+              {formatDec(props.row.original.ventas_siva)}
             </div>
           );
         },
       },
       {
-        Header: "Total NC Valor sIVA",
-        accessor: "total_nc_valor_siva",
+        Header: "NC Descuento sIVA",
+        accessor: "nc_descuento_siva",
         Cell: (props) => {
           return (
             <div style={{ textAlign: "right" }}>
-              {formatDec(props.row.original.total_nc_valor_siva)}
+              {formatDec(props.row.original.nc_descuento_siva)}
+            </div>
+          );
+        },
+      },
+      {
+        Header: "NC Devolucion sIVA",
+        accessor: "nc_devolucion_siva",
+        Cell: (props) => {
+          return (
+            <div style={{ textAlign: "right" }}>
+              {formatDec(props.row.original.nc_devolucion_siva)}
             </div>
           );
         },
