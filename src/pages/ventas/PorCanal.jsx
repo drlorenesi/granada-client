@@ -72,11 +72,11 @@ export default function PorCanal() {
       { Header: "Canal", accessor: "canal" },
       {
         Header: "Ventas sIVA",
-        accessor: "total",
+        accessor: "ventas_siva",
         Cell: (props) => {
           return (
             <div style={{ textAlign: "right" }}>
-              {formatDec(props.row.original.total)}
+              {formatDec(props.row.original.ventas_siva)}
             </div>
           );
         },
