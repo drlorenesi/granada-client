@@ -62,7 +62,7 @@ export default function PorCanal() {
 
   // Donut Chart
   // -----------
-  const donutSeries = data?.data.rows.map((row) => row.ventas_siva);
+  const donutSeries = data?.data.rows.map((row) => row.total);
   const donutLabels = data?.data.rows.map((row) => row.canal);
 
   // Data Table
@@ -72,11 +72,11 @@ export default function PorCanal() {
       { Header: "Canal", accessor: "canal" },
       {
         Header: "Ventas sIVA",
-        accessor: "ventas_siva",
+        accessor: "total",
         Cell: (props) => {
           return (
             <div style={{ textAlign: "right" }}>
-              {formatDec(props.row.original.ventas_siva)}
+              {formatDec(props.row.original.total)}
             </div>
           );
         },
